@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     width: '100%',
-    marginTop: 5,
+    marginTop: 15,
     marginBottom: 10,
   },
   stepContainer: {

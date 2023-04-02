@@ -21,10 +21,10 @@ export function IntoScreen({ navigation }: any) {
         navigation.setOptions({
             headerShadowVisible: false,
             headerStyle: {
-                backgroundColor: '#d696a7',
+                backgroundColor: '#e91e63',
             },
             title: 'create your profile',
-            headerTintColor: '#003153',
+            headerTintColor: '#fff',
         }
         )
     }, [navigation])

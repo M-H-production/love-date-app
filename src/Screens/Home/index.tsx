@@ -23,7 +23,7 @@ export function HomeScreen({ navigation }: any) {
             },
             headerTitle: () =>
                 <Pressable onPress={() => navigation.navigate('Setting')}>
-                    <SettingIcon width={30} height={30} />
+                    <SettingIcon width={35} height={35} />
                 </Pressable >
         })
     }, [navigation])
