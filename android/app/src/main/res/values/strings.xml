@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">lovers</string>
+     <color name="theme_bg">#2F3C7E</color>
+    <string name="server_client_id">166434736469-f9i094q6g9dtisuh0qoi6ofa3f3tsg1p.apps.googleusercontent.com</string>
+</resources>
