@@ -1,34 +1,32 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen } from '../Screens/Home';
 import { AuthScreen } from '../Screens/Auth';
 import { AuthContext } from '../Contexts/AuthContext';
 import { SettingScreen } from '../Screens/Setting';
-import SplashScreen from 'react-native-splash-screen';
-import { IntoScreen } from '../Screens/Intro';
+import { PersonalScreen } from '../Screens/Personal';
+import { OnboardingScreen } from '../Screens/Onboarding';
+import { PartnerScreen } from '../Screens/Partner';
+import { AboutUs } from '../Screens/AboutUs';
 
 export function AppRoutes() {
   const Stack = createNativeStackNavigator();
   const authContext = useContext(AuthContext);
-
-  useEffect(() => {
-    if (authContext.getAccessToken() !== null) {
-      setTimeout(() => {
-        SplashScreen.hide();
-      }, 2000);
-    }
-
-  }, [authContext.getAccessToken()])
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
         {authContext.getAccessToken() ? (
           <>
-            <Stack.Screen name="Intro" component={IntoScreen} />
-            <Stack.Screen name="Home" component={HomeScreen} />
+            {authContext.profile !== null &&
+              <Stack.Screen name="Home" component={HomeScreen} />
+            }
             <Stack.Screen name="Setting" component={SettingScreen} />
+            <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+            <Stack.Screen name="Personal" component={PersonalScreen} />
+            <Stack.Screen name="Partner" component={PartnerScreen} />
+            <Stack.Screen name="AboutUs" component={AboutUs} />
           </>
 
         ) :

@@ -8,8 +8,17 @@ import AppSwitch from '../../Components/global/switch';
 // @ts-ignore 
 import TeddyA from "../../../assets/svg/A.svg";
 import DatePicker from 'react-native-date-picker';
-export function IntoScreen({ navigation }: any) {
+import { Profile } from '../../Models/profile.model';
 
+
+export function OnboardingScreen({ navigation }: any) {
+    const [personForm, setPersonForm] = useState<Profile>(
+        {
+            name: '',
+            special_days_notify_active: false,
+            birthday_notify_active: false
+        }
+    )
     const steps: { title: string, index: number }[] = [
         { title: 'personal info', index: 1 },
         { title: 'partner info', index: 2 }
@@ -23,10 +32,9 @@ export function IntoScreen({ navigation }: any) {
             headerStyle: {
                 backgroundColor: '#e91e63',
             },
-            title: 'create your profile',
+            title: 'Create your profile',
             headerTintColor: '#fff',
-        }
-        )
+        })
     }, [navigation])
 
     return (
@@ -41,10 +49,10 @@ export function IntoScreen({ navigation }: any) {
                             <View style={styles.avatar}>
                                 <TeddyA width={80} height={80} />
                             </View>
-                            <AppInput label='Enter your name' value='sample' onChangeText={() => { }} />
-                            <Text style={styles.personalContainer.hint}>Hint : this info relate to your partner </Text>
-                            <AppSwitch label='notify special days' value={true} onValueChange={() => { }} />
-                            <AppSwitch label='notify partner birthday' value={true} onValueChange={() => { }} />
+                            <AppInput label='Enter your name' value={personForm.name} onChangeText={(e) => { setPersonForm({ ...personForm, name: e }) }} />
+                            <Text style={styles.hint}>Hint : this info relate to your partner </Text>
+                            <AppSwitch label='notify special days' value={personForm.special_days_notify_active} onValueChange={(e) => { setPersonForm({ ...personForm, special_days_notify_active: e }) }} />
+                            <AppSwitch label='notify partner birthday' value={personForm.birthday_notify_active} onValueChange={(e) => { setPersonForm({ ...personForm, birthday_notify_active: e }) }} />
                         </ScrollView>
                         <View>
                             <Button color="#003153" title="submit" onPress={() => setActiveStep(2)} />
@@ -81,7 +89,7 @@ export function IntoScreen({ navigation }: any) {
                         </ScrollView>
 
                         <View>
-                            <Button color="#003153" title="submit" onPress={() => setActiveStep(2)} />
+                            <Button color="#003153" title="submit" onPress={() => navigation.navigate('Home')} />
                         </View>
                     </View>
                 }

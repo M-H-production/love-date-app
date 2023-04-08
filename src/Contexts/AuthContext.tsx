@@ -1,16 +1,19 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
 import * as Keychain from 'react-native-keychain';
 import { setAuthorizationToken } from '../Services/Api/instance';
+import { getProfile } from '../Services/home.service';
+import SplashScreen from 'react-native-splash-screen';
+import { Profile } from '../Models/profile.model';
 
 const AuthContext = createContext<any>(null);
 const { Provider } = AuthContext;
 
 const AuthProvider = ({ children }) => {
-    useEffect(() => {
-        getToken()
-    }, [])
-
-
+    const [authState, setAuthState] = useState<{ accessToken: string | null, authenticated: boolean | null }>({
+        accessToken: null,
+        authenticated: null,
+    });
+    const [profile, setProfile] = useState<Profile | null>(null);
     const getToken = useCallback(async () => {
         const data = await Keychain.getGenericPassword();
         if (data && data.password) {
@@ -18,17 +21,24 @@ const AuthProvider = ({ children }) => {
                 accessToken: data.password,
                 authenticated: true,
             })
+            getProfile().then(
+                () => {
+                    setProfile(profile)
+                }
+            )
+                .finally(() => SplashScreen.hide())
+
         } else {
             setAuthState({
                 accessToken: null,
                 authenticated: false,
             })
         }
-    }, [])
-    const [authState, setAuthState] = useState<{ accessToken: string | null, authenticated: boolean | null }>({
-        accessToken: null,
-        authenticated: null,
-    });
+    }, [setAuthState])
+
+    useEffect(() => {
+        getToken()
+    }, [setAuthState])
 
     const logout = async () => {
         await Keychain.resetGenericPassword();
@@ -53,6 +63,8 @@ const AuthProvider = ({ children }) => {
                 authState,
                 getAccessToken,
                 setAuthState,
+                setProfile,
+                profile,
                 setGenericPasswordSignIn,
                 logout,
             }}>

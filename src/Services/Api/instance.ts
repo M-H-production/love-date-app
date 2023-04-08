@@ -14,9 +14,11 @@ export const setAuthorizationToken = (token: string | null) => {
 axiosInstance.interceptors.request.use(
     function (config) {
         const requestConfig = { ...config };
+        console.log(jwtToken);
         requestConfig.headers!['Authorization'] = jwtToken
         requestConfig.headers!['Content-Type'] = 'application/json';
         requestConfig.headers!['Accept'] = 'application/json';
+        console.log(requestConfig.headers);
         return requestConfig;
     },
     function (error) {

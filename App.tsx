@@ -9,7 +9,9 @@ import React from 'react';
 import Toast from 'react-native-toast-message';
 import { AppRoutes } from './src/Routes';
 
+
 function App(): JSX.Element {
+
    return (
       <>
          <AppRoutes />

@@ -12,10 +12,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     flex: 1,
-    hint: {
-      color: '#003153',
-      marginVertical: 30,
-    },
+  },
+  hint: {
+    color: '#003153',
+    marginVertical: 30,
+    fontWeight: 'bold'
   },
   avatar: {
     display: 'flex',
