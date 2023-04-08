@@ -21,12 +21,13 @@ const AuthProvider = ({ children }) => {
                 accessToken: data.password,
                 authenticated: true,
             })
+            SplashScreen.hide()
             getProfile().then(
                 () => {
                     setProfile(profile)
                 }
             )
-                .finally(() => SplashScreen.hide())
+                .finally(() => { })
 
         } else {
             setAuthState({

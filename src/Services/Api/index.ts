@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
 import { axiosInstance } from './instance'
-import { IResponseModel } from '../../Utils/Models/i-response-model';
+import { IResponseModel } from '../../Models/i-response-model';
 
 export function Get(url: string, params?: any): Promise<IResponseModel<any>> {
     const headers: any = {

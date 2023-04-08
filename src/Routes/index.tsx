@@ -22,8 +22,8 @@ export function AppRoutes() {
             {authContext.profile !== null &&
               <Stack.Screen name="Home" component={HomeScreen} />
             }
-            <Stack.Screen name="Setting" component={SettingScreen} />
             <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+            <Stack.Screen name="Setting" component={SettingScreen} />
             <Stack.Screen name="Personal" component={PersonalScreen} />
             <Stack.Screen name="Partner" component={PartnerScreen} />
             <Stack.Screen name="AboutUs" component={AboutUs} />

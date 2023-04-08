@@ -1,7 +1,7 @@
 
 import { partner } from "../Models/partner.model";
 import { Profile } from "../Models/profile.model";
-import { IResponseModel } from "../Utils/Models/i-response-model";
+import { IResponseModel } from "../Models/i-response-model";
 import { Get, Post } from './Api'
 
 
