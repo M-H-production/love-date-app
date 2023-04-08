@@ -20,7 +20,7 @@ export function ProfileForm(props: { onSubmit: any, data?: Profile }) {
             validationSchema={profileSchema}
             onSubmit={values => props.onSubmit(values)}
         >
-            {({ handleChange, handleSubmit, values, setFieldValue }) => (
+            {({ handleChange, handleSubmit, values, setFieldValue, isValid }) => (
                 <View style={styles.mainContainer}>
                     <View style={styles.personalContainer}>
                         <ScrollView>
@@ -42,7 +42,7 @@ export function ProfileForm(props: { onSubmit: any, data?: Profile }) {
 
                         </ScrollView>
                         <View>
-                            <Button color="#003153" title="submit" onPress={() => handleSubmit()} />
+                            <Button color="#003153" title="submit" onPress={() => handleSubmit()} disabled={!isValid} />
                         </View>
                     </View>
                 </View>

@@ -20,7 +20,7 @@ export function PartnerForm(props: { onSubmit: any, data?: partner }) {
             validationSchema={partnerSchema}
             onSubmit={values => props.onSubmit(values)}
         >
-            {({ handleChange, handleSubmit, values }) => (
+            {({ handleChange, handleSubmit, values, isValid }) => (
                 <View style={styles.mainContainer}>
                     <View style={styles.partnerContainer}>
                         <ScrollView>
@@ -52,7 +52,7 @@ export function PartnerForm(props: { onSubmit: any, data?: partner }) {
                         </ScrollView>
 
                         <View>
-                            <Button color="#003153" title="Submit" onPress={() => handleSubmit()} />
+                            <Button color="#003153" title="Submit" onPress={() => handleSubmit()} disabled={!isValid} />
                         </View>
                     </View>
                 </View>
