@@ -1,12 +1,11 @@
 
-import React, { useCallback, useEffect } from 'react';
-import { Button, Pressable, Text, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Pressable, Text, View } from 'react-native';
 // @ts-ignore 
 import SettingIcon from "../../../assets/svg/settings.svg";
 // @ts-ignore 
 import PicFrameIcon from "../../../assets/svg/pic-frame.svg";
 import styles from './style';
-import { getProfile } from '../../Services/home.service';
 // @ts-ignore 
 import TeddyA from "../../../assets/svg/A.svg";
 // @ts-ignore 
