@@ -1,5 +1,5 @@
-import axios from "axios";
-import Toast from "react-native-toast-message";
+import axios, { AxiosError } from "axios";
+import { ErrorHandeling } from "./error-handling";
 
 export const axiosInstance = axios.create({
     baseURL: "http://192.168.1.79:8001/",
@@ -29,18 +29,8 @@ axiosInstance.interceptors.response.use(
     function (response) {
         return response;
     },
-    function (error) {
-        console.log('data', error);
-        console.log(error.response.data.message);
-        console.log(error.response.status);
-        // if (error.response.status === 401) {
-        //     Keychain.resetGenericPassword().then()
-        // }
-
-        Toast.show({
-            type: 'error',
-            text1: error?.response?.data?.message,
-        })
+    function (error: AxiosError) {
+        ErrorHandeling(error.response!)
         return Promise.reject(error);
     }
 );
