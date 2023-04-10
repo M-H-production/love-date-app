@@ -5,6 +5,10 @@ import styles from './style';
 import { Steps } from '../../Components/global/steps';
 import { ProfileForm } from '../../Components/Forms/ProfileForm';
 import { PartnerForm } from '../../Components/Forms/PartnerForm';
+import TeddyImg from '../../Components/global/teddy';
+import { createProfile, getProfile } from '../../Services/home.service';
+import { Toast } from 'react-native-toast-message/lib/src/Toast';
+import { Profile } from '../../Models/profile.model';
 
 
 export function OnboardingScreen({ navigation }: any) {
@@ -27,8 +31,18 @@ export function OnboardingScreen({ navigation }: any) {
         })
     }, [navigation])
 
-    const onSubmitPersonalForm = () => {
-        setActiveStep(2)
+    const onSubmitPersonalForm = (values: Profile) => {
+        console.log(values);
+
+        createProfile(values).then(
+            () => {
+                Toast.show({
+                    type: 'success',
+                    text1: 'profile created',
+                })
+                setActiveStep(2)
+            }
+        )
     }
     const onSubmitPartnerForm = () => {
         navigation.navigate('Setting')
@@ -38,6 +52,7 @@ export function OnboardingScreen({ navigation }: any) {
         <>
 
             <View style={styles.mainContainer}>
+                <TeddyImg />
                 <Steps steps={steps} activeStep={activeStep} />
 
                 {activeStep === 1 &&

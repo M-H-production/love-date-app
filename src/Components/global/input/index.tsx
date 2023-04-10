@@ -27,7 +27,7 @@ function AppInput(props: inputProps): JSX.Element {
                 numberOfLines={1}
                 onChangeText={text => props.onChangeText(text)}
                 value={props.value}
-                style={{ padding: 10, color: '#333', width: '100%', ...props.style }}
+                style={{ padding: 10, color: '#003153', width: '100%', ...props.style }}
             />
         </View>
     )

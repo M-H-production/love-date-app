@@ -4,4 +4,5 @@ export const ImagesAssets = {
     angle: require('./angle.png'),
     removePartner: require('./dislike.png'),
     aboutUs: require('./info.png'),
+    Teddy: require('./teddy.jpg'),
 }

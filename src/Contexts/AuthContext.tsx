@@ -1,9 +1,11 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react';
 import * as Keychain from 'react-native-keychain';
 import { setAuthorizationToken } from '../Services/Api/instance';
-import { getProfile } from '../Services/home.service';
-import SplashScreen from 'react-native-splash-screen';
 import { Profile } from '../Models/profile.model';
+import { getActivePartner, getProfile, getspecialDay } from '../Services/home.service';
+import SplashScreen from 'react-native-splash-screen';
+import { getData, storeData } from '../Utils/Storage';
+import NetInfo from "@react-native-community/netinfo";
 
 const AuthContext = createContext<any>(null);
 const { Provider } = AuthContext;
@@ -14,20 +16,31 @@ const AuthProvider = ({ children }) => {
         authenticated: null,
     });
     const [profile, setProfile] = useState<Profile | null>(null);
-    const getToken = useCallback(async () => {
+    const onInitApp = useCallback(async () => {
         const data = await Keychain.getGenericPassword();
         if (data && data.password) {
             setAuthState({
                 accessToken: data.password,
                 authenticated: true,
             })
-            SplashScreen.hide()
-            getProfile().then(
-                () => {
-                    setProfile(profile)
+
+            try {
+                if ((await NetInfo.fetch()).isConnected) {
+                    const profile = await getProfile();
+                    const specialDay = await getspecialDay()
+                    const activePartner = await getActivePartner()
+                    await storeData('userData', { profile: profile.data || null, activePartner: activePartner.data || null, specialDay: specialDay.data })
+                    const userData = await getData('userData')
+                    setProfile(profile.data);
+                } else {
+
                 }
-            )
-                .finally(() => { })
+            } catch (error) {
+
+            } finally {
+                console.log('splash screen closed');
+                SplashScreen.hide()
+            }
 
         } else {
             setAuthState({
@@ -38,7 +51,7 @@ const AuthProvider = ({ children }) => {
     }, [setAuthState])
 
     useEffect(() => {
-        getToken()
+        onInitApp()
     }, [setAuthState])
 
     const logout = async () => {
