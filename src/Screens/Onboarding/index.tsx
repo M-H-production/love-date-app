@@ -6,9 +6,11 @@ import { Steps } from '../../Components/global/steps';
 import { ProfileForm } from '../../Components/Forms/ProfileForm';
 import { PartnerForm } from '../../Components/Forms/PartnerForm';
 import TeddyImg from '../../Components/global/teddy';
-import { createProfile, getProfile } from '../../Services/home.service';
+import { createPartner, createProfile } from '../../Services/home.service';
 import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { Profile } from '../../Models/profile.model';
+import { partner } from '../../Models/partner.model';
+import { getData, storeData } from '../../Utils/Storage';
 
 
 export function OnboardingScreen({ navigation }: any) {
@@ -32,10 +34,11 @@ export function OnboardingScreen({ navigation }: any) {
     }, [navigation])
 
     const onSubmitPersonalForm = (values: Profile) => {
-        console.log(values);
 
         createProfile(values).then(
-            () => {
+            async (profile) => {
+                const userData = await getData('userData')
+                await storeData('userData', { ...userData, profile: profile.data })
                 Toast.show({
                     type: 'success',
                     text1: 'profile created',
@@ -44,15 +47,24 @@ export function OnboardingScreen({ navigation }: any) {
             }
         )
     }
-    const onSubmitPartnerForm = () => {
-        navigation.navigate('Setting')
+    const onSubmitPartnerForm = (values: partner) => {
+        createPartner(values).then(
+            async (partner) => {
+                const userData = await getData('userData')
+                await storeData('userData', { ...userData, activePartner: partner.data })
+                Toast.show({
+                    type: 'success',
+                    text1: 'partner created',
+                })
+                navigation.navigate('Home')
+            }
+        )
     }
 
     return (
         <>
 
             <View style={styles.mainContainer}>
-                <TeddyImg />
                 <Steps steps={steps} activeStep={activeStep} />
 
                 {activeStep === 1 &&

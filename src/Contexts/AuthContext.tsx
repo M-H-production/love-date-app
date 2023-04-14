@@ -23,19 +23,26 @@ const AuthProvider = ({ children }) => {
                 accessToken: data.password,
                 authenticated: true,
             })
-
             try {
+                console.log((await NetInfo.fetch()).isConnected)
                 if ((await NetInfo.fetch()).isConnected) {
                     const profile = await getProfile();
+                    console.log(profile.data);
+
+                    setProfile(profile.data);
                     const specialDay = await getspecialDay()
                     const activePartner = await getActivePartner()
+                    console.log(activePartner);
+
                     await storeData('userData', { profile: profile.data || null, activePartner: activePartner.data || null, specialDay: specialDay.data })
                     const userData = await getData('userData')
-                    setProfile(profile.data);
+                    console.log(userData);
                 } else {
 
                 }
             } catch (error) {
+                console.log(error);
+
 
             } finally {
                 console.log('splash screen closed');
@@ -47,6 +54,7 @@ const AuthProvider = ({ children }) => {
                 accessToken: null,
                 authenticated: false,
             })
+            SplashScreen.hide()
         }
     }, [setAuthState])
 

@@ -1,31 +1,38 @@
 import { Formik } from "formik";
-import React from "react";
+import React, { useEffect } from "react";
 import DatePicker from "react-native-date-picker";
-import { Button, ScrollView, View, Text } from "react-native";
+import { Button, ScrollView, View, Text, Image } from "react-native";
 import partnerSchema from "../../../Utils/schemas/partner.schema";
 import AppInput from "../../global/input";
 // @ts-ignore 
 import TeddyA from "../../../../assets/svg/A.svg";
 import styles from "./style";
 import { partner } from "../../../Models/partner.model";
+import { ImagesAssets } from "../../../../assets/png";
+import TeddyImg from "../../global/teddy";
 
 export function PartnerForm(props: { onSubmit: any, data?: partner }) {
+    const { data, onSubmit } = props
+    useEffect(() => {
+
+        console.log('inner', props.data);
+    }, [props])
     return (
         <Formik
             initialValues={{
-                name: props.data?.name || '',
-                birthday: props.data?.birthday || new Date(),
-                first_date: props.data?.first_date || new Date(),
+                name: data?.name || '',
+                birthday: data && new Date(data?.birthday) || new Date(),
+                first_date: data && new Date(data?.first_date) || new Date(),
             }}
+            enableReinitialize={true}
             validationSchema={partnerSchema}
-            onSubmit={values => props.onSubmit(values)}
-        >
-            {({ handleChange, handleSubmit, values, isValid }) => (
+            onSubmit={values => props.onSubmit(values)}>
+            {({ handleChange, handleSubmit, values, isValid, setFieldValue }) => (
                 <View style={styles.mainContainer}>
                     <View style={styles.partnerContainer}>
                         <ScrollView>
                             <View style={styles.avatar}>
-                                <TeddyA width={80} height={80} />
+                                <TeddyImg name={values.name} />
                             </View>
                             <AppInput label='Enter your partner name' value={values.name} onChangeText={handleChange('name')} />
                             <Text style={styles.dateLabel}>Enter your first Date</Text>
@@ -36,7 +43,7 @@ export function PartnerForm(props: { onSubmit: any, data?: partner }) {
                                     textColor="#003153"
                                     date={values.first_date}
                                     maximumDate={new Date()}
-                                    onDateChange={() => handleChange('first_date')} />
+                                    onDateChange={(e) => setFieldValue('first_date', e)} />
                             </View>
 
                             <Text style={styles.dateLabel}>Enter your partner`s birthday</Text>
@@ -47,7 +54,7 @@ export function PartnerForm(props: { onSubmit: any, data?: partner }) {
                                     textColor="#003153"
                                     date={values.birthday}
                                     maximumDate={new Date()}
-                                    onDateChange={() => handleChange('birthday')} />
+                                    onDateChange={(e) => setFieldValue('birthday', e)} />
                             </View>
                         </ScrollView>
 

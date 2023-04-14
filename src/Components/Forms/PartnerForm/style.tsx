@@ -20,6 +20,7 @@ const styles = StyleSheet.create({
     flex: 1
   },
   avatar: {
+    height: 120,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',

@@ -8,6 +8,7 @@ import styles from "./style";
 // @ts-ignore 
 import TeddyA from "../../../../assets/svg/A.svg";
 import { Profile } from "../../../Models/profile.model";
+import TeddyImg from "../../global/teddy";
 
 export function ProfileForm(props: { onSubmit: any, data?: Profile }) {
     return (
@@ -17,6 +18,7 @@ export function ProfileForm(props: { onSubmit: any, data?: Profile }) {
                 special_days_notify_active: props.data?.special_days_notify_active || false,
                 birthday_notify_active: props.data?.birthday_notify_active || false,
             }}
+            enableReinitialize={true}
             validationSchema={profileSchema}
             onSubmit={values => props.onSubmit(values)}
         >
@@ -25,7 +27,7 @@ export function ProfileForm(props: { onSubmit: any, data?: Profile }) {
                     <View style={styles.personalContainer}>
                         <ScrollView>
                             <View style={styles.avatar}>
-                                <TeddyA width={80} height={80} />
+                                <TeddyImg name={values.name} />
                             </View>
                             <AppInput label='Enter your name' value={values.name} onChangeText={handleChange('name')} />
 

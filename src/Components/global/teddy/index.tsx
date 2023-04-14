@@ -1,22 +1,18 @@
 import React from "react";
-import { View, ImageBackground } from "react-native";
-import styles from "./style"
+import { Image } from "react-native";
 import { ImagesAssets } from "../../../../assets/png";
 
-function TeddyImg(props: any): JSX.Element {
+function TeddyImg(props: { name: string, style?: any }): JSX.Element {
     return (
-        <ImageBackground
-            source={ImagesAssets.Teddy}
-            resizeMode="cover"
-            style={{
-                padding: 20,
-                paddingVertical: 40,
-                position: 'absolute',
-                bottom: 1,
-            }}>
-            <View style={{ width: 100, height: 100 }}></View>
-
-        </ImageBackground>
+        props?.name?.slice(0, 1) ?
+            <Image
+                source={ImagesAssets.teddy[props?.name?.slice(0, 1)?.toLocaleUpperCase()]}
+                style={{
+                    height: 100,
+                    width: 100,
+                    ...props.style
+                }} />
+            : <></>
     )
 
 }

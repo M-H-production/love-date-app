@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 15
+    marginBottom: 15,
+    height: 100
   },
 });
 

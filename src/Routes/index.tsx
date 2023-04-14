@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { HomeScreen } from '../Screens/Home';
@@ -13,22 +13,24 @@ import { AboutUs } from '../Screens/AboutUs';
 export function AppRoutes() {
   const Stack = createNativeStackNavigator();
   const authContext = useContext(AuthContext);
+  useEffect(() => {
+    console.log(authContext.profile);
 
+  })
   return (
     <NavigationContainer>
       <Stack.Navigator>
         {authContext.getAccessToken() ? (
           <>
-            {authContext.profile !== null &&
-              <Stack.Screen name="Home" component={HomeScreen} />
+            {authContext.profile === null &&
+              <Stack.Screen name="Onboarding" component={OnboardingScreen} />
             }
-            <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="Setting" component={SettingScreen} />
             <Stack.Screen name="Personal" component={PersonalScreen} />
             <Stack.Screen name="Partner" component={PartnerScreen} />
             <Stack.Screen name="AboutUs" component={AboutUs} />
           </>
-
         ) :
           <>
             <Stack.Screen name="Auth" component={AuthScreen} />

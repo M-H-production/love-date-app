@@ -13,7 +13,6 @@ import { AuthContext } from '../../Contexts/AuthContext';
 export function AuthScreen({ navigation }: any) {
   const authContext = useContext(AuthContext);
   useEffect(() => {
-    authContext.setGenericPasswordSignIn('mohtashami911@gmail.com', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vaHRhc2hhbWk5MTFAZ21haWwuY29tIiwidXNlcl9pZCI6MiwiZXhwIjoxNzExODc5ODIwfQ.09tvQsbZf2o8ZCyWsAYBbYnctiPSanJ9xlU9ezk4o_k')
     navigation.setOptions({
       title: '',
       headerStyle: {
