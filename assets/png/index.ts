@@ -23,13 +23,14 @@ export const ImagesAssets = {
         P: require('./teddy/P.jpg'),
         Q: require('./teddy/Q.jpg'),
         R: require('./teddy/R.jpg'),
-        // S: require('./teddy/S.jpg'),
+        S: require('./teddy/S.jpg'),
         T: require('./teddy/T.jpg'),
         U: require('./teddy/U.jpg'),
         V: require('./teddy/V.jpg'),
         W: require('./teddy/W.jpg'),
         X: require('./teddy/X.jpg'),
         Y: require('./teddy/Y.jpg'),
-        Z: require('./teddy/Z.jpg')
+        Z: require('./teddy/Z.jpg'),
+        CreatePartner: require('./teddy/create_partner.jpg'),
     }
 }

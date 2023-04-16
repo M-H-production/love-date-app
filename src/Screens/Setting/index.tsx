@@ -38,13 +38,13 @@ export function SettingScreen({ navigation }: any) {
                 getData('userData').then((userData: any) => {
                     storeData('userData', { ...userData, activePartner: null }).then()
                     setHavePartner(false)
+                    setModalVisible(false)
+                    Toast.show({
+                        type: 'success',
+                        text1: 'partner Removed',
+                    })
+                    navigation.navigate('Home')
                 })
-                setModalVisible(false)
-                Toast.show({
-                    type: 'success',
-                    text1: 'partner Removed',
-                })
-                navigation.navigate('Home')
             }
         )
     }

@@ -35,7 +35,6 @@ export function AuthScreen({ navigation }: any) {
           authenticated: true,
         })
         authContext.setGenericPasswordSignIn(email, jwtToken.data)
-        navigation.navigate('Home')
       }
     )
   }

@@ -21,5 +21,5 @@ export function getFullOfDateUntilNow(date: Date) {
     const yearDiff = now.getFullYear() - mydate.getFullYear();
     let TotalMonth = monthDiff + yearDiff * 12;
     let TotalWeek = Math.round((difference) / (1000 * 60 * 60 * 24 * 7));
-    return `${TotalMonth} month or ${TotalWeek} week or ${TotalDays} days`;
+    return `${TotalMonth} months or ${TotalWeek} weeks or ${TotalDays} days`;
 }

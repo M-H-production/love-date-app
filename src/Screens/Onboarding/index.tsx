@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import styles from './style';
 import { Steps } from '../../Components/global/steps';
@@ -11,6 +11,7 @@ import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { Profile } from '../../Models/profile.model';
 import { partner } from '../../Models/partner.model';
 import { getData, storeData } from '../../Utils/Storage';
+import { AuthContext } from '../../Contexts/AuthContext';
 
 
 export function OnboardingScreen({ navigation }: any) {
@@ -21,6 +22,8 @@ export function OnboardingScreen({ navigation }: any) {
     ]
 
     const [activeStep, setActiveStep] = useState<number>(1)
+    const authContext = useContext(AuthContext);
+
 
     useEffect(() => {
         navigation.setOptions({
@@ -34,11 +37,15 @@ export function OnboardingScreen({ navigation }: any) {
     }, [navigation])
 
     const onSubmitPersonalForm = (values: Profile) => {
+        console.log(values);
 
         createProfile(values).then(
-            async (profile) => {
-                const userData = await getData('userData')
-                await storeData('userData', { ...userData, profile: profile.data })
+            (profile) => {
+                console.log('profile', profile);
+                getData('userData').then(userData => {
+                    storeData('userData', { ...userData, profile: profile.data }).then()
+                })
+
                 Toast.show({
                     type: 'success',
                     text1: 'profile created',
@@ -56,7 +63,7 @@ export function OnboardingScreen({ navigation }: any) {
                     type: 'success',
                     text1: 'partner created',
                 })
-                navigation.navigate('Home')
+                authContext.setProfile(userData.profile)
             }
         )
     }
