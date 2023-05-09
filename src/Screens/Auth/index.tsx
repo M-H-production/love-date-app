@@ -27,13 +27,14 @@ export function AuthScreen({ navigation }: any) {
 
   const onValidateToken = (token, email, token_type) => {
     console.log(token, email, token_type);
-
     validateToken({ token, token_type }).then(
       (jwtToken) => {
         authContext.setAuthState({
           accessToken: token,
           authenticated: true,
         })
+        console.log(jwtToken);
+
         authContext.setGenericPasswordSignIn(email, jwtToken.data)
       }
     )

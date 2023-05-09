@@ -27,15 +27,17 @@ export function SignInGoogleComponent(props: { onSubmit: Function }) {
 
 
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.log('cancelled');
+        alert('cancelled');
         // user cancelled the login flow
       } else if (error.code === statusCodes.IN_PROGRESS) {
-        console.log('in progress');
+        alert('in progress');
         // operation (e.g. sign in) is in progress already
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log('service not avalable');
+        alert('service not avalable');
         // play services not available or outdated
       } else {
+        alert('other things')
+        alert(error)
         // some other error happened
       }
     }

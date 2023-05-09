@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { ErrorHandeling } from "./error-handling";
 
 export const axiosInstance = axios.create({
-    baseURL: "http://5.75.179.150:8000",
+    baseURL: "http://5.75.185.134:8000",
 });
 
 let jwtToken: string | null = null
@@ -13,6 +13,8 @@ export const setAuthorizationToken = (token: string | null) => {
 
 axiosInstance.interceptors.request.use(
     function (config) {
+        console.log(jwtToken);
+
         const requestConfig = { ...config };
         requestConfig.headers!['Authorization'] = jwtToken
         requestConfig.headers!['Content-Type'] = 'application/json';
