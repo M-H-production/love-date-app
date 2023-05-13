@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { ErrorHandeling } from "./error-handling";
 
 export const axiosInstance = axios.create({
-    baseURL: "http://5.75.185.134:8000",
+    baseURL: "https://api.lovedateapp.com",
 });
 
 
