@@ -8,6 +8,7 @@ import styles from './style';
 import LoginBanner from "../../../assets/svg/LoginBanner.svg";
 import { validateToken } from '../../Services/auth.service';
 import { AuthContext } from '../../Contexts/AuthContext';
+import { setAuthorizationToken } from '../../Services/Api/instance';
 
 
 export function AuthScreen({ navigation }: any) {
@@ -33,8 +34,7 @@ export function AuthScreen({ navigation }: any) {
           accessToken: token,
           authenticated: true,
         })
-        console.log(jwtToken);
-
+        setAuthorizationToken(jwtToken.data);
         authContext.setGenericPasswordSignIn(email, jwtToken.data)
       }
     )

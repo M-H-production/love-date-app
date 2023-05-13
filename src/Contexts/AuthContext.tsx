@@ -19,13 +19,16 @@ const AuthProvider = ({ children }) => {
     const onInitApp = useCallback(async () => {
         const data = await Keychain.getGenericPassword();
         if (data && data.password) {
+            console.log('reach');
+
             setAuthState({
                 accessToken: data.password,
                 authenticated: true,
             })
+            setAuthorizationToken(data.password)
             try {
-                console.log((await NetInfo.fetch()).isConnected)
                 if ((await NetInfo.fetch()).isConnected) {
+
                     const profile = await getProfile();
                     console.log(profile);
                     setProfile(profile.data);

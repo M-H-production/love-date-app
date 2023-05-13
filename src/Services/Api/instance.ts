@@ -5,18 +5,15 @@ export const axiosInstance = axios.create({
     baseURL: "http://5.75.185.134:8000",
 });
 
-let jwtToken: string | null = null
 
 export const setAuthorizationToken = (token: string | null) => {
-    jwtToken = token ? `Bearer ${token}` : null
+    axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
 
 axiosInstance.interceptors.request.use(
     function (config) {
-        console.log(jwtToken);
-
         const requestConfig = { ...config };
-        requestConfig.headers!['Authorization'] = jwtToken
+        console.log('auth', requestConfig.headers['Authorization'])
         requestConfig.headers!['Content-Type'] = 'application/json';
         requestConfig.headers!['Accept'] = 'application/json';
         return requestConfig;
