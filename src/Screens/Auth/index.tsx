@@ -8,16 +8,10 @@ import LoginBanner from '../../../assets/svg/LoginBanner.svg';
 import {validateToken} from '../../Services/auth.service';
 import {AuthContext} from '../../Contexts/AuthContext';
 import {setAuthorizationToken} from '../../Services/Api/instance';
-import {Notifications, Registered} from 'react-native-notifications';
 
 export function AuthScreen({navigation}: any) {
   const authContext = useContext(AuthContext);
   useEffect(() => {
-    Notifications.events().registerRemoteNotificationsRegistered(
-      (event: Registered) => {
-        console.log('Device Token Received', event.deviceToken);
-      },
-    );
     navigation.setOptions({
       title: '',
       headerStyle: {
